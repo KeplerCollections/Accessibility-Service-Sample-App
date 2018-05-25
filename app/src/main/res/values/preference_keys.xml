@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pref_whatsapp_enabled" translatable="false">pref_whatsapp_enabled</string>
+    <string name="pref_whatsapp_start_time" translatable="false">pref_whatsapp_start_time</string>
+    <string name="pref_whatsapp_end_time" translatable="false">pref_whatsapp_end_time</string>
+    <string name="pref_facebook_enabled" translatable="false">pref_facebook_enabled</string>
+    <string name="pref_facebook_start_time" translatable="false">pref_facebook_start_time</string>
+    <string name="pref_facebook_end_time" translatable="false">pref_facebook_end_time</string>
+    <string name="pref_instagram_enabled" translatable="false">pref_instagram_enabled</string>
+    <string name="pref_instagram_start_time" translatable="false">pref_instagram_start_time</string>
+    <string name="pref_instagram_end_time" translatable="false">pref_instagram_end_time</string>
+    <string name="key_send_feedback">key_send_feedback</string>
+    <string name="key_drive_mode">key_send_feedback</string>
+
+</resources>

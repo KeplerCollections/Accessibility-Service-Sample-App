@@ -1,0 +1,46 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+    </style>
+
+
+    <!--Text Style Light-->
+    <style name="LightTextAppearanceLarge" parent="android:Widget.TextView">
+        <item name="android:textSize">@dimen/textSize_Large</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="LightTextAppearanceMedium" parent="android:Widget.TextView">
+        <item name="android:textSize">@dimen/textSize_Medium</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="LightTextAppearanceSmall" parent="android:Widget.TextView">
+        <item name="android:textSize">@dimen/textSize_Small</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <!--Text Style Dark-->
+    <style name="DarkTextAppearanceLarge" parent="android:Widget.TextView">
+        <item name="android:textSize">@dimen/textSize_Large</item>
+        <item name="android:textColor">@color/app_dark_txt_color</item>
+    </style>
+
+    <style name="DarkTextAppearanceMedium" parent="android:Widget.TextView">
+        <item name="android:textSize">@dimen/textSize_Medium</item>
+        <item name="android:textColor">@color/app_dark_txt_color</item>
+    </style>
+
+    <style name="DarkTextAppearanceSmall" parent="android:Widget.TextView">
+        <item name="android:textSize">@dimen/textSize_Small</item>
+        <item name="android:textColor">@color/app_dark_txt_color</item>
+    </style>
+
+
+</resources>

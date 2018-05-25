@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/facebook"
+        style="@style/DarkTextAppearanceMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/whatsapp"
+        android:padding="@dimen/three_dp"
+        android:text="\u25A0 Facebook"
+        android:textColor="#454A99"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/whatsapp"
+        style="@style/DarkTextAppearanceMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:padding="@dimen/three_dp"
+        android:text="\u25A0 Whats App"
+        android:textColor="#00DD5F"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/instagram"
+        style="@style/DarkTextAppearanceMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/whatsapp"
+        android:padding="@dimen/three_dp"
+        android:text="\u25A0 Instagram"
+        android:textColor="#BF0099"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/hours"
+        style="@style/DarkTextAppearanceMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:gravity="center"
+        android:paddingLeft="@dimen/two_dp"
+        android:text="@string/in_hours_hor"
+        android:textAllCaps="true"
+        android:textStyle="bold" />
+
+    <com.jjoe64.graphview.GraphView
+        android:id="@+id/graph"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/accessibility_setting"
+        android:layout_below="@+id/instagram"
+        android:layout_toRightOf="@+id/hours" />
+
+    <ToggleButton
+        android:id="@+id/accessibility_setting"
+        style="@style/LightTextAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/red_green_button"
+        android:text="Hello World!"
+        android:textOff="Enable Accessibility Option"
+        android:textOn="Accessibility Option Enabled" />
+
+    <LinearLayout
+        android:id="@+id/lin_permission_user_stat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ee000000"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/permission_user_stat"
+            style="@style/DarkTextAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/white_stroke_corner"
+            android:clickable="true"
+            android:padding="@dimen/ten_dp"
+            android:text="Enable User Stats Permission" />
+
+        <TextView
+            style="@style/LightTextAppearanceMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/ten_dp"
+            android:text="@string/summary_about" />
+
+    </LinearLayout>
+
+</RelativeLayout>
