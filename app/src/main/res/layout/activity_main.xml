@@ -47,6 +47,7 @@
         android:gravity="center"
         android:paddingLeft="@dimen/two_dp"
         android:text="@string/in_hours_hor"
+        android:visibility="visible"
         android:textAllCaps="true"
         android:textStyle="bold" />
 
@@ -60,14 +61,14 @@
 
     <ToggleButton
         android:id="@+id/accessibility_setting"
-        style="@style/LightTextAppearanceMedium"
+        style="@style/LightTextAppearanceLarge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/red_green_button"
+        android:background="@drawable/button_selector"
         android:text="Hello World!"
-        android:textOff="Enable Accessibility Option"
-        android:textOn="Accessibility Option Enabled" />
+        android:textOff="Enable Control Usage"
+        android:textOn="Control Usage Enabled" />
 
     <LinearLayout
         android:id="@+id/lin_permission_user_stat"
@@ -85,7 +86,7 @@
             android:background="@drawable/white_stroke_corner"
             android:clickable="true"
             android:padding="@dimen/ten_dp"
-            android:text="Enable User Stats Permission" />
+            android:text="@string/permission_user_stat" />
 
         <TextView
             style="@style/LightTextAppearanceMedium"
@@ -93,7 +94,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="@dimen/ten_dp"
-            android:text="@string/summary_about" />
+            android:text="@string/permission_user_stat_summary" />
 
     </LinearLayout>
 

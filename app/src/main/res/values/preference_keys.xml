@@ -9,7 +9,8 @@
     <string name="pref_instagram_enabled" translatable="false">pref_instagram_enabled</string>
     <string name="pref_instagram_start_time" translatable="false">pref_instagram_start_time</string>
     <string name="pref_instagram_end_time" translatable="false">pref_instagram_end_time</string>
-    <string name="key_send_feedback">key_send_feedback</string>
-    <string name="key_drive_mode">key_send_feedback</string>
-
+    <string name="pref_key_send_feedback" translatable="false">pref_key_send_feedback</string>
+    <string name="pref_whatsapp_key_back" translatable="false">pref_whatsapp_key_back</string>
+    <string name="pref_facebook_key_back" translatable="false">pref_facebook_key_back</string>
+    <string name="pref_instagram_key_back" translatable="false">pref_instagram_key_back</string>
 </resources>

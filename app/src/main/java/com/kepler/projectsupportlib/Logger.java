@@ -34,7 +34,7 @@ public class Logger {
         }
     }
 
-    public static void print(String msg) {
+    public static void print(Object msg) {
         if (BuildConfig.DEBUG) {
             System.out.println(msg);
         }

@@ -24,6 +24,7 @@ import android.widget.ToggleButton;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.ValueDependentColor;
+import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.kepler.projectsupportlib.BaseActivity;
@@ -56,6 +57,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private WindowManager windowManager;
     private TextView image;
     private Map<String, List<Integer>> refinedList;
+    private SharedPref shrdPref;
 
     public static boolean hasAccessbilityPermission(Context mContext) {
         int accessibilityEnabled = 0;
@@ -99,6 +101,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        shrdPref = SharedPref.getInstance(this);
         setTitle(R.string.main);
         updateAccessibilityBtnUi();
         checkUsageStagPermission();
@@ -121,9 +124,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             UStats.printCurrentUsageStatus(this);
             refinedList = UStats.getRefindUsageStatsList(this);
             graph.removeAllSeries();
+            // use static labels for horizontal and vertical labels
+            StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
+            List<String> level = new ArrayList<>();
+            level.add("0");
+            Iterator<String> stringIterator = refinedList.keySet().iterator();
+            while (stringIterator.hasNext()) {
+                String key = stringIterator.next().substring(0, 2);
+                level.add(key);
+                level.add(key);
+                level.add(key);
+            }
+            level.add("0");
+
+//            staticLabelsFormatter.setHorizontalLabels(refinedList.keySet().toArray(new String[refinedList.size()]));
+            staticLabelsFormatter.setHorizontalLabels(level.toArray(new String[level.size()]));
+            graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
             graph.getViewport().setXAxisBoundsManual(true);
             graph.getViewport().setMinX(0);
-            graph.getViewport().setMaxX(3.2);
+            graph.getViewport().setMaxX(13);
 //            graph.getViewport().setYAxisBoundsManual(true);
 //            graph.getViewport().setMinY(0);
 //            graph.getViewport().setMaxY(3);
@@ -133,20 +152,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             series.setValueDependentColor(new ValueDependentColor<DataPoint>() {
                 @Override
                 public int get(DataPoint data) {
-                    if (data.getX() == 0.2 ||
-                            data.getX() == 1.0 ||
-                            data.getX() == 1.8 ||
-                            data.getX() == 2.6) {
+                    if (data.getX() == 1 ||
+                            data.getX() == 4 ||
+                            data.getX() == 7 ||
+                            data.getX() == 10) {
                         return Color.rgb(82, 87, 171);
-                    } else if (data.getX() == 0.4 ||
-                            data.getX() == 1.2 ||
-                            data.getX() == 2.0 ||
-                            data.getX() == 2.8) {
+                    } else if (data.getX() == 2 ||
+                            data.getX() == 5 ||
+                            data.getX() == 8 ||
+                            data.getX() == 11) {
                         return Color.rgb(0, 216, 88);
-                    } else if (data.getX() == 0.6 ||
-                            data.getX() == 1.4 ||
-                            data.getX() == 2.2 ||
-                            data.getX() == 3.0) {
+                    } else if (data.getX() == 3 ||
+                            data.getX() == 6 ||
+                            data.getX() == 9 ||
+                            data.getX() == 12) {
                         return Color.rgb(181, 0, 159);
                     }
                     return Color.rgb((int) data.getX() * 255 / 4, (int) Math.abs(data.getY() * 255 / 6), 100);
@@ -156,8 +175,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 // draw values on top
             series.setDrawValuesOnTop(true);
-            series.setValuesOnTopSize(20);
-            series.setDataWidth(0.2);
+            series.setValuesOnTopSize(30);
+            series.setSpacing(10);
             series.setAnimated(true);
             series.setValuesOnTopColor(getResources().getColor(R.color.colorPrimary));
 
@@ -169,14 +188,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public BarGraphSeries<DataPoint> getSeries() {
         List<DataPoint> list = new ArrayList<>();
         String key;
-        double index = 0.2;
+//        double index = 0.2;
+        double index = 1;
         Iterator<String> iterator = refinedList.keySet().iterator();
         while (iterator.hasNext()) {
             key = iterator.next();
-            list.add(new DataPoint(Double.parseDouble(String.format("%.1f", index )), refinedList.get(key).get(0)));
-            list.add(new DataPoint(Double.parseDouble(String.format("%.1f", index + 0.2)), refinedList.get(key).get(1)));
-            list.add(new DataPoint(Double.parseDouble(String.format("%.1f", index + 0.4)), refinedList.get(key).get(2)));
-            index = index + 0.8;
+            list.add(new DataPoint(Double.parseDouble(String.format("%.1f", index)), refinedList.get(key).get(0)));
+            list.add(new DataPoint(Double.parseDouble(String.format("%.1f", index + 1)), refinedList.get(key).get(1)));
+            list.add(new DataPoint(Double.parseDouble(String.format("%.1f", index + 2)), refinedList.get(key).get(2)));
+//            list.add(new DataPoint(Double.parseDouble(String.format("%.1f", index )), refinedList.get(key).get(0)));
+//            list.add(new DataPoint(Double.parseDouble(String.format("%.1f", index + 0.2)), refinedList.get(key).get(1)));
+//            list.add(new DataPoint(Double.parseDouble(String.format("%.1f", index + 0.4)), refinedList.get(key).get(2)));
+//            index = index + 0.8;
+            index = index + 3;
         }
         BarGraphSeries<DataPoint> series = new BarGraphSeries<>(list.toArray((new DataPoint[list.size()])));
         return series;
@@ -191,7 +215,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private boolean updateAccessibilityBtnUi() {
         if (hasAccessbilityPermission(this)) {
             accessibility_setting.setChecked(true);
+            accessibility_setting.setVisibility(View.GONE);
+            if (!shrdPref.isShowCaseShowed()) {
+                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+                Bundle bundle = new Bundle();
+                bundle.putIntArray(ShowCase.DATA, new int[]{R.drawable.one, R.drawable.two});
+                bundle.putIntArray(ShowCase.DATA, new int[]{R.drawable.one, R.drawable.two});
+                startActivity(ShowCase.class, bundle);
+            }
             return true;
+        } else {
+            accessibility_setting.setChecked(false);
         }
         return false;
     }
@@ -236,7 +270,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 if (checkDrawOverlayPermission()) {
                     openAccessibilitySetting();
                 } else {
-                    showToast("Sorry. Can't draw overlays without permission");
+                    showToast("This permission is required to restrict your usage if you wish so");
                 }
                 break;
             case MY_PERMISSIONS_REQUEST_ACCESSBILITY_SERVICE:
@@ -264,11 +298,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     public void run() {
                         removeInstructionView();
                     }
-                }, 3000);
+                }, 5000);
 
                 break;
             case R.id.accessibility_setting:
-                checkUsageStagPermission();
+//                checkUsageStagPermission();
                 if (updateAccessibilityBtnUi()) {
                     return;
                 }

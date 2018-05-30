@@ -112,10 +112,10 @@ public class OverLayService extends Service {
 //    }
 
     private void logServiceStarted() {
-        Toast.makeText(this, "Service started", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Service started", Toast.LENGTH_SHORT).show();
     }
 
     private void logServiceEnded() {
-        Toast.makeText(this, "Service ended", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Service ended", Toast.LENGTH_SHORT).show();
     }
 }

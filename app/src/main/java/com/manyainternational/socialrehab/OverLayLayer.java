@@ -40,7 +40,7 @@ public class OverLayLayer extends View {
 
         mContext = context;
         mFrameLayout = new FrameLayout(mContext);
-        mFrameLayout.setBackgroundResource(R.drawable.logo);
+        mFrameLayout.setBackgroundResource(R.drawable.hover_on);
         addToWindowManager();
     }
 
@@ -57,7 +57,7 @@ public class OverLayLayer extends View {
                     WindowManager.LayoutParams.MATCH_PARENT,
                     WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
                     WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-                    PixelFormat.TRANSLUCENT);
+                    PixelFormat.RGB_565);
 
         }else{
             params = new WindowManager.LayoutParams(
@@ -65,7 +65,7 @@ public class OverLayLayer extends View {
                     WindowManager.LayoutParams.MATCH_PARENT,
                     WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
                     WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-                    PixelFormat.TRANSLUCENT);
+                    PixelFormat.RGB_565);
 
         }
         params.gravity = Gravity.CENTER;

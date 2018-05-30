@@ -13,7 +13,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +22,7 @@ import static com.manyainternational.socialrehab.MyAccessibilityService.PACKAGE_
 import static com.manyainternational.socialrehab.MyAccessibilityService.PACKAGE_FB_KATANA_INT;
 import static com.manyainternational.socialrehab.MyAccessibilityService.PACKAGE_IG;
 import static com.manyainternational.socialrehab.MyAccessibilityService.PACKAGE_IG_INT;
+import static com.manyainternational.socialrehab.MyAccessibilityService.PACKAGE_NAMES;
 import static com.manyainternational.socialrehab.MyAccessibilityService.PACKAGE_WHATS_APP;
 import static com.manyainternational.socialrehab.MyAccessibilityService.PACKAGE_WHATS_APP_INT;
 
@@ -83,36 +83,27 @@ public class UStats {
         for (UsageStats u : usageStatsList) {
 //            Log.d(TAG, "Pkg: " + u.getPackageName() +  "\t" + "ForegroundTime: "
 //                    + u.getTotalTimeInForeground()) ;
-                switch (u.getPackageName()) {
-                    case PACKAGE_FB_KATANA:
-                        calendar = Calendar.getInstance();
-                        calendar.setTimeInMillis(u.getFirstTimeStamp());
-                        setList(new DateFormatSymbols().getShortWeekdays()[calendar.get(Calendar.DAY_OF_WEEK)],
-                                PACKAGE_FB_KATANA_INT,
-                                getMinutesFromMillis(u.getTotalTimeInForeground()));
-                        break;
-                    case PACKAGE_IG:
-                        calendar = Calendar.getInstance();
-                        calendar.setTimeInMillis(u.getFirstTimeStamp());
-                        setList(new DateFormatSymbols().getShortWeekdays()[calendar.get(Calendar.DAY_OF_WEEK)],
-                                PACKAGE_IG_INT,
-                                getMinutesFromMillis(u.getTotalTimeInForeground()));
-                        break;
-                    case PACKAGE_WHATS_APP:
-                        calendar = Calendar.getInstance();
-                        calendar.setTimeInMillis(u.getFirstTimeStamp());
-                        setList(new DateFormatSymbols().getShortWeekdays()[calendar.get(Calendar.DAY_OF_WEEK)],
-                                PACKAGE_WHATS_APP_INT,
-                                getMinutesFromMillis(u.getTotalTimeInForeground()));
-                        break;
-                    case "com.indiashopps.android":
-                        calendar = Calendar.getInstance();
-                        calendar.setTimeInMillis(u.getFirstTimeStamp());
-                        setList(new DateFormatSymbols().getShortWeekdays()[calendar.get(Calendar.DAY_OF_WEEK)],
-                                PACKAGE_IG_INT,
-                                u.getTotalTimeInForeground());
-                        break;
-                }
+            switch (u.getPackageName()) {
+                case PACKAGE_FB_KATANA:
+                    calendar = Calendar.getInstance();
+                    calendar.setTimeInMillis(u.getFirstTimeStamp());
+                    setList(new DateFormatSymbols().getShortWeekdays()[calendar.get(Calendar.DAY_OF_WEEK)],
+                            PACKAGE_FB_KATANA_INT,
+                            u.getTotalTimeInForeground());
+                    break;
+                case PACKAGE_IG:
+                    calendar = Calendar.getInstance();
+                    calendar.setTimeInMillis(u.getFirstTimeStamp());
+                    setList(new DateFormatSymbols().getShortWeekdays()[calendar.get(Calendar.DAY_OF_WEEK)],
+                            PACKAGE_IG_INT, u.getTotalTimeInForeground());
+                    break;
+                case PACKAGE_WHATS_APP:
+                    calendar = Calendar.getInstance();
+                    calendar.setTimeInMillis(u.getFirstTimeStamp());
+                    setList(new DateFormatSymbols().getShortWeekdays()[calendar.get(Calendar.DAY_OF_WEEK)],
+                            PACKAGE_WHATS_APP_INT, u.getTotalTimeInForeground());
+                    break;
+            }
         }
         return stringListMap;
     }
@@ -129,26 +120,26 @@ public class UStats {
         stringListMap.put(new DateFormatSymbols().getShortWeekdays()[calendar.get(Calendar.DAY_OF_WEEK)], new ArrayList<>(Arrays.asList(new Integer[]{0, 0, 0})));
     }
 
-    private static void     setList(String key, int index, long value) {
+    private static void setList(String key, int index, long value) {
         if (stringListMap.containsKey(key)) {
             List<Integer> list = stringListMap.get(key);
             list.set(index, getMinutesFromMillis(value));
-            stringListMap.put(key,list);
+            stringListMap.put(key, list);
         }
     }
 
     public static void printUsageStats(List<UsageStats> usageStatsList) {
         for (UsageStats u : usageStatsList) {
-            if (u.getPackageName().equals("com.indiashopps.android")) {
+            if (PACKAGE_NAMES.contains(u.getPackageName())) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTimeInMillis(u.getFirstTimeStamp());
                 Log.e(TAG, "Pkg: " + u.getPackageName());
-                Logger.e(new DateFormatSymbols().getShortWeekdays()[calendar.get(Calendar.DAY_OF_WEEK)]);
                 Log.i(TAG, "\nForegroundTime: " + u.getTotalTimeInForeground()
-                        + "\n" + "getFirstTimeStamp: " + u.getFirstTimeStamp()
-                        + "\n" + "getLastTimeStamp: " + u.getLastTimeStamp()
-                        + "\n" + "getLastTimeUsed: " + u.getLastTimeUsed()
+                        + ", " + "getFirstTimeStamp: " + u.getFirstTimeStamp()
+                        + ", " + "getLastTimeStamp: " + u.getLastTimeStamp()
+                        + ", " + "getLastTimeUsed: " + u.getLastTimeUsed()
                 );
+                Logger.e(new DateFormatSymbols().getShortWeekdays()[calendar.get(Calendar.DAY_OF_WEEK)]);
             }
         }
 
