@@ -2,7 +2,7 @@ package com.kepler.projectsupportlib;
 
 import android.util.Log;
 
-import com.manyainternational.socialrehab.BuildConfig;
+import com.socialrehab.BuildConfig;
 
 
 /**

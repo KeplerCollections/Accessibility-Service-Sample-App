@@ -1,6 +1,5 @@
-package com.manyainternational.socialrehab;
+package com.socialrehab.android;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -12,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.kepler.projectsupportlib.BaseActivity;
+import com.socialrehab.R;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import butterknife.BindView;

@@ -5,5 +5,5 @@
     android:canRetrieveWindowContent="false"
     android:description="@string/accessibility_desc"
     android:notificationTimeout="100"
-    android:settingsActivity="com.manyainternational.socialrehab.MainActivity"
+    android:settingsActivity="com.socialrehab.MainActivity"
     android:summary="@string/accessibility_summary" />

@@ -1,4 +1,4 @@
-package com.manyainternational.socialrehab;
+package com.socialrehab.android;
 
 import android.app.AppOpsManager;
 import android.content.Context;
@@ -29,7 +29,8 @@ import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.kepler.projectsupportlib.BaseActivity;
 import com.kepler.projectsupportlib.Logger;
-import com.manyainternational.socialrehab.settings.SettingsActivity;
+import com.socialrehab.R;
+import com.socialrehab.android.settings.SettingsActivity;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -181,7 +182,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             series.setValuesOnTopColor(getResources().getColor(R.color.colorPrimary));
 
         } catch (Exception e) {
-            showErrorDialog(e.getMessage(), null);
+//            showErrorDialog(e.getMessage(), null);
         }
     }
 
@@ -369,7 +370,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             params.y = 100;
             windowManager.addView(image, params);
         } catch (Exception e) {
-            showErrorDialog(e.getMessage(), null);
+//            showErrorDialog(e.getMessage(), null);
+            showToastLong("Look for 'Social Rehab' in list and then click");
         }
     }
 

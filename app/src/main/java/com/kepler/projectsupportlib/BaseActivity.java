@@ -21,7 +21,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
-import com.manyainternational.socialrehab.R;
+import com.socialrehab.R;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
@@ -167,6 +167,10 @@ public abstract class BaseActivity extends AppCompatActivity implements Fragment
 
     protected void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    protected void showToastLong(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
 

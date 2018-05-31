@@ -1,4 +1,4 @@
-package com.manyainternational.socialrehab;
+package com.socialrehab.android;
 
 /**
  * Created by amit on 10/1/18.
@@ -18,6 +18,8 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.socialrehab.R;
 
 import java.util.Timer;
 import java.util.TimerTask;

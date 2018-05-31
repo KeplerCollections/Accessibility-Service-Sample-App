@@ -1,16 +1,15 @@
-package com.manyainternational.socialrehab.settings;
+package com.socialrehab.android.settings;
 
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.view.MenuItem;
 
-import com.manyainternational.socialrehab.ExecuteTask;
-import com.manyainternational.socialrehab.R;
-import com.manyainternational.socialrehab.SharedPref;
+import com.socialrehab.android.ExecuteTask;
+import com.socialrehab.R;
+import com.socialrehab.android.SharedPref;
 
 public class SettingsActivity extends AppCompatPreferenceActivity {
 
@@ -147,7 +146,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
             if (preference instanceof EditTextPreference) {
                 if (preference.getKey().equals("pref_key_send_feedback")) {
-                    ExecuteTask.saveFeedBack(getActivity(),stringValue);
+                    ExecuteTask.saveFeedBack(getActivity(), stringValue);
                 }
             } else if (preference instanceof TimePreference) {
                 switch (preference.getKey()) {
@@ -176,12 +175,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
         private String getFormatedTime(String stringValue) {
             try {
-                String[] val=stringValue.split(":");
-                if(val[1].length()==1)
-                    stringValue=val[0]+":0"+val[1];
-                if(val[0].length()==1)
-                    stringValue="0"+stringValue;
-            }catch (Exception e){
+                String[] val = stringValue.split(":");
+                if (val[1].length() == 1)
+                    stringValue = val[0] + ":0" + val[1];
+                if (val[0].length() == 1)
+                    stringValue = "0" + stringValue;
+            } catch (Exception e) {
 
             }
             return stringValue;

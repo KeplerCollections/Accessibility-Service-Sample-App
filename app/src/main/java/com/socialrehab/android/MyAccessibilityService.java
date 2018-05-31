@@ -1,9 +1,8 @@
-package com.manyainternational.socialrehab;
+package com.socialrehab.android;
 
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.view.accessibility.AccessibilityEvent;
-import android.widget.Toast;
 
 import com.kepler.projectsupportlib.Logger;
 
@@ -67,7 +66,7 @@ public class MyAccessibilityService extends AccessibilityService {
                         endTime=sharedPref.whatsAppEndTime();
                     }
                     break;
-              case "com.manyainternational.socialrehab":
+              case "com.socialrehab":
                     break;
 //                case "com.indiashopps.android":
 //                    if(sharedPref.isInstagramEnabled()){

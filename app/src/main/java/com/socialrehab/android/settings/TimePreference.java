@@ -1,4 +1,4 @@
-package com.manyainternational.socialrehab.settings;
+package com.socialrehab.android.settings;
 
 import android.content.Context;
 import android.content.res.TypedArray;

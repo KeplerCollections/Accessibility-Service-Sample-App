@@ -15,7 +15,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 
-import com.manyainternational.socialrehab.R;
+import com.socialrehab.R;
 
 import butterknife.ButterKnife;
 

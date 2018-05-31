@@ -1,4 +1,4 @@
-package com.manyainternational.socialrehab;
+package com.socialrehab.android;
 
 import android.app.usage.UsageEvents;
 import android.app.usage.UsageStats;
@@ -18,13 +18,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import static com.manyainternational.socialrehab.MyAccessibilityService.PACKAGE_FB_KATANA;
-import static com.manyainternational.socialrehab.MyAccessibilityService.PACKAGE_FB_KATANA_INT;
-import static com.manyainternational.socialrehab.MyAccessibilityService.PACKAGE_IG;
-import static com.manyainternational.socialrehab.MyAccessibilityService.PACKAGE_IG_INT;
-import static com.manyainternational.socialrehab.MyAccessibilityService.PACKAGE_NAMES;
-import static com.manyainternational.socialrehab.MyAccessibilityService.PACKAGE_WHATS_APP;
-import static com.manyainternational.socialrehab.MyAccessibilityService.PACKAGE_WHATS_APP_INT;
+import static com.socialrehab.android.MyAccessibilityService.PACKAGE_FB_KATANA;
+import static com.socialrehab.android.MyAccessibilityService.PACKAGE_FB_KATANA_INT;
+import static com.socialrehab.android.MyAccessibilityService.PACKAGE_IG;
+import static com.socialrehab.android.MyAccessibilityService.PACKAGE_IG_INT;
+import static com.socialrehab.android.MyAccessibilityService.PACKAGE_NAMES;
+import static com.socialrehab.android.MyAccessibilityService.PACKAGE_WHATS_APP;
+import static com.socialrehab.android.MyAccessibilityService.PACKAGE_WHATS_APP_INT;
 
 public class UStats {
     public static final String TAG = UStats.class.getSimpleName();

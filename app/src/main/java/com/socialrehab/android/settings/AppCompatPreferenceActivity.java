@@ -1,4 +1,4 @@
-package com.manyainternational.socialrehab.settings;
+package com.socialrehab.android.settings;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

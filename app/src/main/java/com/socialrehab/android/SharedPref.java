@@ -1,4 +1,4 @@
-package com.manyainternational.socialrehab;
+package com.socialrehab.android;
 
 import android.content.Context;
 import android.content.SharedPreferences;

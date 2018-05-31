@@ -1,4 +1,4 @@
-package com.manyainternational.socialrehab;
+package com.socialrehab.android;
 
 /**
  * Created by amit on 10/1/18.
@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
 import android.provider.Settings;
-import android.widget.Toast;
 
 import java.util.Iterator;
 import java.util.List;
