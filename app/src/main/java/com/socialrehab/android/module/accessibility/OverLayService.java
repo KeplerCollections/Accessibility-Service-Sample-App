@@ -1,4 +1,4 @@
-package com.socialrehab.android;
+package com.socialrehab.android.module.accessibility;
 
 /**
  * Created by amit on 10/1/18.
@@ -11,6 +11,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
 import android.provider.Settings;
+
+import com.kepler.projectsupportlib.Logger;
 
 import java.util.Iterator;
 import java.util.List;
@@ -111,10 +113,12 @@ public class OverLayService extends Service {
 //    }
 
     private void logServiceStarted() {
+        Logger.e("Service started");
 //        Toast.makeText(this, "Service started", Toast.LENGTH_SHORT).show();
     }
 
     private void logServiceEnded() {
+        Logger.e("Service ended");
 //        Toast.makeText(this, "Service ended", Toast.LENGTH_SHORT).show();
     }
 }

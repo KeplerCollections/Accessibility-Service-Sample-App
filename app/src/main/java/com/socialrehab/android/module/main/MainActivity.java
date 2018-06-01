@@ -1,4 +1,4 @@
-package com.socialrehab.android;
+package com.socialrehab.android.module.main;
 
 import android.app.AppOpsManager;
 import android.content.Context;
@@ -17,8 +17,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -30,7 +32,11 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.kepler.projectsupportlib.BaseActivity;
 import com.kepler.projectsupportlib.Logger;
 import com.socialrehab.R;
-import com.socialrehab.android.settings.SettingsActivity;
+import com.socialrehab.android.module.accessibility.MyAccessibilityService;
+import com.socialrehab.android.module.settings.SettingsActivity;
+import com.socialrehab.android.module.settings.password_.PasswordScreen;
+import com.socialrehab.android.module.showcase.ShowCase;
+import com.socialrehab.android.support.SharedPref;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -41,6 +47,16 @@ import butterknife.BindView;
 
 import static android.app.AppOpsManager.MODE_ALLOWED;
 import static android.app.AppOpsManager.OPSTR_GET_USAGE_STATS;
+import static com.socialrehab.android.module.accessibility.MyAccessibilityService.PACKAGE_FB_KATANA;
+import static com.socialrehab.android.module.accessibility.MyAccessibilityService.PACKAGE_FB_KATANA_INT;
+import static com.socialrehab.android.module.accessibility.MyAccessibilityService.PACKAGE_IG;
+import static com.socialrehab.android.module.accessibility.MyAccessibilityService.PACKAGE_IG_INT;
+import static com.socialrehab.android.module.accessibility.MyAccessibilityService.PACKAGE_TWITTER;
+import static com.socialrehab.android.module.accessibility.MyAccessibilityService.PACKAGE_TWITTER_INT;
+import static com.socialrehab.android.module.accessibility.MyAccessibilityService.PACKAGE_WHATS_APP;
+import static com.socialrehab.android.module.accessibility.MyAccessibilityService.PACKAGE_WHATS_APP_INT;
+import static com.socialrehab.android.module.accessibility.MyAccessibilityService.PACKAGE_YOUTUBE;
+import static com.socialrehab.android.module.accessibility.MyAccessibilityService.PACKAGE_YOUTUBE_INT;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -51,14 +67,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     ToggleButton accessibility_setting;
     @BindView(R.id.graph)
     GraphView graph;
+    @BindView(R.id.header_view)
+    View header_view;
+    @BindView(R.id.apps)
+    Spinner apps;
     @BindView(R.id.lin_permission_user_stat)
     LinearLayout lin_permission_user_stat;
     @BindView(R.id.permission_user_stat)
     TextView permission_user_stat;
     private WindowManager windowManager;
     private TextView image;
-    private Map<String, List<Integer>> refinedList;
+    private Map<String, Integer> refinedList;
     private SharedPref shrdPref;
+    private String package_name = PACKAGE_WHATS_APP;
+    private int color = Color.rgb(0, 216, 88);
 
     public static boolean hasAccessbilityPermission(Context mContext) {
         int accessibilityEnabled = 0;
@@ -108,6 +130,40 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         checkUsageStagPermission();
         accessibility_setting.setOnClickListener(this);
         permission_user_stat.setOnClickListener(this);
+        apps.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case PACKAGE_WHATS_APP_INT:
+                        package_name = PACKAGE_WHATS_APP;
+                        color = Color.rgb(0, 216, 88);
+                        break;
+                    case PACKAGE_FB_KATANA_INT:
+                        package_name = PACKAGE_FB_KATANA;
+                        color = Color.rgb(82, 87, 171);
+                        break;
+                    case PACKAGE_IG_INT:
+                        package_name = PACKAGE_IG;
+                        color = Color.rgb(181, 0, 159);
+                        break;
+                    case PACKAGE_TWITTER_INT:
+                        package_name = PACKAGE_TWITTER;
+                        color = Color.rgb(44, 145, 245);
+                        break;
+                    case PACKAGE_YOUTUBE_INT:
+                        package_name = PACKAGE_YOUTUBE;
+                        color = Color.rgb(255, 0, 0);
+                        break;
+                }
+                header_view.setBackgroundColor(color);
+                initGraph();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private void checkUsageStagPermission() {
@@ -122,28 +178,26 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private void initGraph() {
         try {
-            UStats.printCurrentUsageStatus(this);
-            refinedList = UStats.getRefindUsageStatsList(this);
+//            UStats.printCurrentUsageStatus(this);
+            refinedList = UStats.getRefindUsageStatsList(this, package_name);
             graph.removeAllSeries();
             // use static labels for horizontal and vertical labels
             StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
             List<String> level = new ArrayList<>();
-            level.add("0");
+            level.add("X");
             Iterator<String> stringIterator = refinedList.keySet().iterator();
             while (stringIterator.hasNext()) {
-                String key = stringIterator.next().substring(0, 2);
-                level.add(key);
-                level.add(key);
-                level.add(key);
+//                String key = stringIterator.next().substring(0, 2);
+                level.add(stringIterator.next());
             }
-            level.add("0");
+            level.add("X");
 
 //            staticLabelsFormatter.setHorizontalLabels(refinedList.keySet().toArray(new String[refinedList.size()]));
             staticLabelsFormatter.setHorizontalLabels(level.toArray(new String[level.size()]));
             graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
             graph.getViewport().setXAxisBoundsManual(true);
             graph.getViewport().setMinX(0);
-            graph.getViewport().setMaxX(13);
+            graph.getViewport().setMaxX(4);
 //            graph.getViewport().setYAxisBoundsManual(true);
 //            graph.getViewport().setMinY(0);
 //            graph.getViewport().setMaxY(3);
@@ -153,23 +207,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             series.setValueDependentColor(new ValueDependentColor<DataPoint>() {
                 @Override
                 public int get(DataPoint data) {
-                    if (data.getX() == 1 ||
-                            data.getX() == 4 ||
-                            data.getX() == 7 ||
-                            data.getX() == 10) {
-                        return Color.rgb(82, 87, 171);
-                    } else if (data.getX() == 2 ||
-                            data.getX() == 5 ||
-                            data.getX() == 8 ||
-                            data.getX() == 11) {
-                        return Color.rgb(0, 216, 88);
-                    } else if (data.getX() == 3 ||
-                            data.getX() == 6 ||
-                            data.getX() == 9 ||
-                            data.getX() == 12) {
-                        return Color.rgb(181, 0, 159);
-                    }
-                    return Color.rgb((int) data.getX() * 255 / 4, (int) Math.abs(data.getY() * 255 / 6), 100);
+                    return color;
                 }
             });
 
@@ -177,8 +215,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 // draw values on top
             series.setDrawValuesOnTop(true);
             series.setValuesOnTopSize(30);
-            series.setSpacing(10);
             series.setAnimated(true);
+            series.setSpacing(20);
             series.setValuesOnTopColor(getResources().getColor(R.color.colorPrimary));
 
         } catch (Exception e) {
@@ -189,19 +227,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public BarGraphSeries<DataPoint> getSeries() {
         List<DataPoint> list = new ArrayList<>();
         String key;
-//        double index = 0.2;
-        double index = 1;
+        double index = 0.5;
         Iterator<String> iterator = refinedList.keySet().iterator();
         while (iterator.hasNext()) {
             key = iterator.next();
-            list.add(new DataPoint(Double.parseDouble(String.format("%.1f", index)), refinedList.get(key).get(0)));
-            list.add(new DataPoint(Double.parseDouble(String.format("%.1f", index + 1)), refinedList.get(key).get(1)));
-            list.add(new DataPoint(Double.parseDouble(String.format("%.1f", index + 2)), refinedList.get(key).get(2)));
-//            list.add(new DataPoint(Double.parseDouble(String.format("%.1f", index )), refinedList.get(key).get(0)));
-//            list.add(new DataPoint(Double.parseDouble(String.format("%.1f", index + 0.2)), refinedList.get(key).get(1)));
-//            list.add(new DataPoint(Double.parseDouble(String.format("%.1f", index + 0.4)), refinedList.get(key).get(2)));
-//            index = index + 0.8;
-            index = index + 3;
+            list.add(new DataPoint(Double.parseDouble(String.format("%.1f", index)), refinedList.get(key)));
+            index = index + 0.5;
         }
         BarGraphSeries<DataPoint> series = new BarGraphSeries<>(list.toArray((new DataPoint[list.size()])));
         return series;
@@ -400,7 +431,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         if (id == R.id.action_settings) {
             // launch settings activity
-            startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+            if(shrdPref.isPasswordEnabled()){
+                startActivity(PasswordScreen.class);
+            }else {
+                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+            }
             return true;
         }
 

@@ -1,4 +1,4 @@
-package com.socialrehab.android.settings;
+package com.socialrehab.android.module.settings;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

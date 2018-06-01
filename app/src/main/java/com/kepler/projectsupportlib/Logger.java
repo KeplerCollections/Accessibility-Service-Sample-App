@@ -1,6 +1,8 @@
 package com.kepler.projectsupportlib;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.socialrehab.BuildConfig;
 
@@ -78,5 +80,9 @@ public class Logger {
         if (BuildConfig.DEBUG) {
             Log.i(TAG, msg);
         }
+    }
+
+    public static void showToast(Context context,int message) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 }

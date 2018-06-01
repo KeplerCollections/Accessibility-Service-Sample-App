@@ -1,4 +1,4 @@
-package com.socialrehab.android;
+package com.socialrehab.android.module.showcase;
 
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.kepler.projectsupportlib.BaseActivity;
 import com.socialrehab.R;
+import com.socialrehab.android.support.SharedPref;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import butterknife.BindView;

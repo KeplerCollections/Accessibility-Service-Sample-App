@@ -1,10 +1,11 @@
-package com.socialrehab.android;
+package com.socialrehab.android.module.accessibility;
 
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.view.accessibility.AccessibilityEvent;
 
 import com.kepler.projectsupportlib.Logger;
+import com.socialrehab.android.support.SharedPref;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,19 +20,23 @@ import java.util.List;
 
 public class MyAccessibilityService extends AccessibilityService {
     /*packages*/
+    public static final String PACKAGE_WHATS_APP = "com.whatsapp";
     public static final String PACKAGE_FB_KATANA = "com.facebook.katana";
     public static final String PACKAGE_IG = "com.instagram.android";
-    public static final String PACKAGE_WHATS_APP = "com.whatsapp";
-    /**/
-    /*packages constants*/
-    public static final int PACKAGE_FB_KATANA_INT = 0;
-    public static final int PACKAGE_WHATS_APP_INT = 1;
+    public static final String PACKAGE_TWITTER = "com.twitter.android";
+    public static final String PACKAGE_YOUTUBE = "com.google.android.youtube";
+    public static final int PACKAGE_WHATS_APP_INT = 0;
+    public static final int PACKAGE_FB_KATANA_INT = 1;
     public static final int PACKAGE_IG_INT = 2;
-        public static final List<String> PACKAGE_NAMES = new ArrayList<String>() {{
+    public static final int PACKAGE_TWITTER_INT = 3;
+    public static final int PACKAGE_YOUTUBE_INT = 4;
+    /**/
+    public static final List<String> PACKAGE_NAMES = new ArrayList<String>() {{
         add(PACKAGE_FB_KATANA);
         add(PACKAGE_IG);
         add(PACKAGE_WHATS_APP);
-//        add("com.indiashopps.android");
+        add(PACKAGE_YOUTUBE);
+        add(PACKAGE_TWITTER);
     }};
     private SharedPref sharedPref;
 
@@ -49,24 +54,36 @@ public class MyAccessibilityService extends AccessibilityService {
             String endTime = null;
             switch (String.valueOf(accessibilityEvent.getPackageName())) {
                 case PACKAGE_FB_KATANA:
-                    if(sharedPref.isFacebookEnabled()){
-                        startTime=sharedPref.facebookStartTime();
-                        endTime=sharedPref.facebookEndTime();
+                    if (sharedPref.isFacebookEnabled()) {
+                        startTime = sharedPref.facebookStartTime();
+                        endTime = sharedPref.facebookEndTime();
                     }
                     break;
                 case PACKAGE_IG:
-                    if(sharedPref.isInstagramEnabled()){
-                        startTime=sharedPref.instagramStartTime();
-                        endTime=sharedPref.instagramEndTime();
+                    if (sharedPref.isInstagramEnabled()) {
+                        startTime = sharedPref.instagramStartTime();
+                        endTime = sharedPref.instagramEndTime();
                     }
                     break;
                 case PACKAGE_WHATS_APP:
-                    if(sharedPref.isWhatsAppEnabled()){
-                        startTime=sharedPref.whatsAppStartTime();
-                        endTime=sharedPref.whatsAppEndTime();
+                    if (sharedPref.isWhatsAppEnabled()) {
+                        startTime = sharedPref.whatsAppStartTime();
+                        endTime = sharedPref.whatsAppEndTime();
                     }
                     break;
-              case "com.socialrehab":
+                case PACKAGE_TWITTER:
+                    if (sharedPref.isTwitterEnabled()) {
+                        startTime = sharedPref.twitterStartTime();
+                        endTime = sharedPref.twitterEndTime();
+                    }
+                    break;
+                case PACKAGE_YOUTUBE:
+                    if (sharedPref.isYoutubeEnabled()) {
+                        startTime = sharedPref.youtubeStartTime();
+                        endTime = sharedPref.youtubeEndTime();
+                    }
+                    break;
+                case "com.socialrehab.android":
                     break;
 //                case "com.indiashopps.android":
 //                    if(sharedPref.isInstagramEnabled()){

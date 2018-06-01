@@ -1,4 +1,4 @@
-package com.socialrehab.android;
+package com.socialrehab.android.module;
 
 import android.content.Context;
 import android.provider.Settings;
@@ -13,6 +13,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.kepler.projectsupportlib.Logger;
+import com.socialrehab.R;
 
 import org.json.JSONObject;
 
@@ -80,6 +81,7 @@ public class ExecuteTask {
                         @Override
                         public void onResponse(String response) {
                             Logger.print(response);
+                            Logger.showToast(context, R.string.feedback_submitted_message);
                         }
                     }, new Response.ErrorListener() {
                 @Override
@@ -108,6 +110,32 @@ public class ExecuteTask {
             };
 
             requestQu.add(stringRequest);
+        } catch (Exception e) {
+
+        }
+    }
+
+    public static void getJsonObjectRequest(Context context, String url, Response.Listener<JSONObject> jsonObjectListener) {
+        try {
+            final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                    (Request.Method.GET, url, null, jsonObjectListener,null);
+
+
+// Access the RequestQueue through your singleton class.
+            Volley.newRequestQueue(context).add(jsonObjectRequest);
+        } catch (Exception e) {
+
+        }
+    }
+
+    public static void postJsonObjectRequest(Context context, String url, JSONObject jsonRequest, Response.Listener<JSONObject> jsonObjectListener,Response.ErrorListener errorListener) {
+        try {
+            final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                    (Request.Method.POST, url, jsonRequest, jsonObjectListener,errorListener);
+
+
+// Access the RequestQueue through your singleton class.
+            Volley.newRequestQueue(context).add(jsonObjectRequest);
         } catch (Exception e) {
 
         }

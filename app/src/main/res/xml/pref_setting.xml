@@ -22,12 +22,12 @@
                     android:summary="@string/summary_active"
                     android:title="@string/active" />
 
-                <com.socialrehab.android.settings.TimePreference
+                <com.socialrehab.android.module.settings.TimePreference
                     android:key="@string/pref_whatsapp_start_time"
                     android:summary="00:00"
                     android:title="@string/start_time" />
 
-                <com.socialrehab.android.settings.TimePreference
+                <com.socialrehab.android.module.settings.TimePreference
                     android:key="@string/pref_whatsapp_end_time"
                     android:summary="00:00"
                     android:title="@string/end_time" />
@@ -53,12 +53,12 @@
                     android:summary="@string/summary_active"
                     android:title="@string/active" />
 
-                <com.socialrehab.android.settings.TimePreference
+                <com.socialrehab.android.module.settings.TimePreference
                     android:key="@string/pref_facebook_start_time"
                     android:summary="00:00"
                     android:title="@string/start_time" />
 
-                <com.socialrehab.android.settings.TimePreference
+                <com.socialrehab.android.module.settings.TimePreference
                     android:key="@string/pref_facebook_end_time"
                     android:summary="00:00"
                     android:title="@string/end_time" />
@@ -83,13 +83,73 @@
                     android:summary="@string/summary_active"
                     android:title="@string/active" />
 
-                <com.socialrehab.android.settings.TimePreference
+                <com.socialrehab.android.module.settings.TimePreference
                     android:key="@string/pref_instagram_start_time"
                     android:summary="00:00"
                     android:title="@string/start_time" />
 
-                <com.socialrehab.android.settings.TimePreference
+                <com.socialrehab.android.module.settings.TimePreference
                     android:key="@string/pref_instagram_end_time"
+                    android:summary="00:00"
+                    android:title="@string/end_time" />
+
+
+            </PreferenceCategory>
+        </PreferenceScreen>
+        <PreferenceScreen
+            android:icon="@drawable/twitter"
+            android:key="@string/twitter"
+            android:summary="@string/app_click_summary"
+            android:title="@string/twitter">
+            <Preference
+                android:key="@string/pref_twitter_key_back"
+                android:layout="@layout/back" />
+
+            <PreferenceCategory android:title="@string/twitter">
+
+                <SwitchPreference
+                    android:defaultValue="false"
+                    android:key="@string/pref_twitter_enabled"
+                    android:summary="@string/summary_active"
+                    android:title="@string/active" />
+
+                <com.socialrehab.android.module.settings.TimePreference
+                    android:key="@string/pref_twitter_start_time"
+                    android:summary="00:00"
+                    android:title="@string/start_time" />
+
+                <com.socialrehab.android.module.settings.TimePreference
+                    android:key="@string/pref_twitter_end_time"
+                    android:summary="00:00"
+                    android:title="@string/end_time" />
+
+
+            </PreferenceCategory>
+        </PreferenceScreen>
+        <PreferenceScreen
+            android:icon="@drawable/youtube"
+            android:key="@string/youtube"
+            android:summary="@string/app_click_summary"
+            android:title="@string/youtube">
+            <Preference
+                android:key="@string/pref_youtube_key_back"
+                android:layout="@layout/back" />
+
+            <PreferenceCategory android:title="@string/youtube">
+
+                <SwitchPreference
+                    android:defaultValue="false"
+                    android:key="@string/pref_youtube_enabled"
+                    android:summary="@string/summary_active"
+                    android:title="@string/active" />
+
+                <com.socialrehab.android.module.settings.TimePreference
+                    android:key="@string/pref_youtube_start_time"
+                    android:summary="00:00"
+                    android:title="@string/start_time" />
+
+                <com.socialrehab.android.module.settings.TimePreference
+                    android:key="@string/pref_youtube_end_time"
                     android:summary="00:00"
                     android:title="@string/end_time" />
 
@@ -103,6 +163,23 @@
               android:summary="@string/summary_drive_mode"
               android:title="@string/drive_mode" />
   -->
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/security">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="@string/pref_password_enable"
+            android:summary="@string/summary_password"
+            android:title="@string/active" />
+
+
+     <!--   <Preference
+            android:key="@string/pref_change_password"
+            android:shouldDisableView="true"
+            android:title="@string/change_password" />
+-->
+
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_header_about">
@@ -123,11 +200,11 @@
 
         <!-- preference opens url in browser -->
 
-       <!-- <Preference android:title="@string/privacy_policy">
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:data="@string/url_privacy" />
-        </Preference>-->
+        <!-- <Preference android:title="@string/privacy_policy">
+             <intent
+                 android:action="android.intent.action.VIEW"
+                 android:data="@string/url_privacy" />
+         </Preference>-->
 
     </PreferenceCategory>
 </PreferenceScreen>

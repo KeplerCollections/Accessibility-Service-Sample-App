@@ -3,40 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".android.MainActivity">
+    android:background="@android:color/white"
+    tools:context=".android.module.main.MainActivity">
 
-    <TextView
-        android:id="@+id/facebook"
-        style="@style/DarkTextAppearanceMedium"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/whatsapp"
-        android:padding="@dimen/three_dp"
-        android:text="\u25A0 Facebook"
-        android:textColor="#454A99"
-        android:textStyle="bold" />
+        android:layout_margin="@dimen/five_dp"
+        android:background="@drawable/edittext_drawable"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/whatsapp"
-        style="@style/DarkTextAppearanceMedium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:padding="@dimen/three_dp"
-        android:text="\u25A0 Whats App"
-        android:textColor="#00DD5F"
-        android:textStyle="bold" />
+        <Spinner
+            android:id="@+id/apps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/apps"
+            android:background="@drawable/dropdown_drawable"/>
 
-    <TextView
-        android:id="@+id/instagram"
-        style="@style/DarkTextAppearanceMedium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/whatsapp"
-        android:padding="@dimen/three_dp"
-        android:text="\u25A0 Instagram"
-        android:textColor="#BF0099"
-        android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/header_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/two_dp"
+        android:layout_below="@+id/header"
+        android:layout_marginBottom="@dimen/two_dp"
+        android:layout_marginTop="@dimen/two_dp" />
 
     <TextView
         android:id="@+id/hours"
@@ -47,16 +41,16 @@
         android:gravity="center"
         android:paddingLeft="@dimen/two_dp"
         android:text="@string/in_hours_hor"
-        android:visibility="visible"
         android:textAllCaps="true"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="visible" />
 
     <com.jjoe64.graphview.GraphView
         android:id="@+id/graph"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/accessibility_setting"
-        android:layout_below="@+id/instagram"
+        android:layout_below="@+id/header_view"
         android:layout_toRightOf="@+id/hours" />
 
     <ToggleButton
@@ -65,8 +59,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/button_selector"
-        android:text="Hello World!"
+        android:background="@drawable/toggle_button_selector"
+        android:checked="false"
         android:textOff="Enable Control Usage"
         android:textOn="Control Usage Enabled" />
 

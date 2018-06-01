@@ -1,4 +1,4 @@
-package com.socialrehab.android;
+package com.socialrehab.android.module.accessibility;
 
 /**
  * Created by amit on 10/1/18.

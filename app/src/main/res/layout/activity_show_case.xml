@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFCC80"
-    tools:context=".android.ShowCase">
+    tools:context=".android.module.showcase.ShowCase">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:clickable="true"
-        android:background="@drawable/button_selector"
+        android:background="@drawable/toggle_button_selector"
         android:layout_margin="@dimen/five_dp"
         android:padding="@dimen/five_dp"
         android:text="@string/next" />

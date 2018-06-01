@@ -1,5 +1,6 @@
-package com.socialrehab.android.settings;
+package com.socialrehab.android.module.settings;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
@@ -7,9 +8,10 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.view.MenuItem;
 
-import com.socialrehab.android.ExecuteTask;
 import com.socialrehab.R;
-import com.socialrehab.android.SharedPref;
+import com.socialrehab.android.module.ExecuteTask;
+import com.socialrehab.android.module.settings.password_.ChangePassword;
+import com.socialrehab.android.support.SharedPref;
 
 public class SettingsActivity extends AppCompatPreferenceActivity {
 
@@ -122,6 +124,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             pref_whatsapp_key_back.setOnPreferenceClickListener(this);
             pref_facebook_key_back.setOnPreferenceClickListener(this);
             pref_instagram_key_back.setOnPreferenceClickListener(this);
+//            findPreference(getString(R.string.pref_change_password)).setOnPreferenceClickListener(this);
         }
 
         @Override
@@ -135,6 +138,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                     return true;
                 case "pref_instagram_key_back":
                     ((PreferenceScreen) findPreference(getString(R.string.instagram))).getDialog().dismiss();
+                    return true;
+                case "pref_change_password":
+                    startActivity(new Intent(getActivity(),ChangePassword.class));
                     return true;
             }
             return false;

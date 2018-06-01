@@ -5,6 +5,7 @@
     <color name="colorAccent">#EE5E1A</color>
     <color name="light_green">#37D391</color>
     <color name="light_red">#FD455D</color>
+    <color name="black_opacity_light">#10000000</color>
     <color name="app_dark_txt_color">#666666</color>
     <color name="app_light_txt_color">#FFFFFF</color>
 </resources>
