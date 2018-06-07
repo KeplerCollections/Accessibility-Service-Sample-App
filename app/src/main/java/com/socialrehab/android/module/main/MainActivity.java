@@ -126,7 +126,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         shrdPref = SharedPref.getInstance(this);
         setTitle(R.string.main);
-        updateAccessibilityBtnUi();
+        if (hasAccessbilityPermission(getApplicationContext())) {
+            updateAccessibilityBtnUi(true);
+        } else {
+            updateAccessibilityBtnUi(false);
+        }
         checkUsageStagPermission();
         accessibility_setting.setOnClickListener(this);
         permission_user_stat.setOnClickListener(this);
@@ -182,26 +186,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             refinedList = UStats.getRefindUsageStatsList(this, package_name);
             graph.removeAllSeries();
             // use static labels for horizontal and vertical labels
-            StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
             List<String> level = new ArrayList<>();
             level.add("X");
             Iterator<String> stringIterator = refinedList.keySet().iterator();
             while (stringIterator.hasNext()) {
-//                String key = stringIterator.next().substring(0, 2);
                 level.add(stringIterator.next());
             }
             level.add("X");
 
 //            staticLabelsFormatter.setHorizontalLabels(refinedList.keySet().toArray(new String[refinedList.size()]));
+            StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
             staticLabelsFormatter.setHorizontalLabels(level.toArray(new String[level.size()]));
             graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
+            BarGraphSeries<DataPoint> series = getSeries();
             graph.getViewport().setXAxisBoundsManual(true);
             graph.getViewport().setMinX(0);
             graph.getViewport().setMaxX(4);
-//            graph.getViewport().setYAxisBoundsManual(true);
-//            graph.getViewport().setMinY(0);
-//            graph.getViewport().setMaxY(3);
-            BarGraphSeries<DataPoint> series = getSeries();
+            graph.getViewport().setYAxisBoundsManual(true);
+            graph.getViewport().setMinY(0);
+            graph.getViewport().setMaxY(series.getHighestValueY() + 2);
             graph.addSeries(series);
 // styling
             series.setValueDependentColor(new ValueDependentColor<DataPoint>() {
@@ -244,8 +247,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         return mode == MODE_ALLOWED;
     }
 
-    private boolean updateAccessibilityBtnUi() {
-        if (hasAccessbilityPermission(this)) {
+    private boolean updateAccessibilityBtnUi(boolean value) {
+        if (value) {
             accessibility_setting.setChecked(true);
             accessibility_setting.setVisibility(View.GONE);
             if (!shrdPref.isShowCaseShowed()) {
@@ -306,7 +309,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }
                 break;
             case MY_PERMISSIONS_REQUEST_ACCESSBILITY_SERVICE:
-                updateAccessibilityBtnUi();
+                if (hasAccessbilityPermission(getApplicationContext())) {
+                    updateAccessibilityBtnUi(true);
+                } else {
+                    updateAccessibilityBtnUi(false);
+                }
                 break;
             case MY_PERMISSIONS_REQUEST_FOR_ACTION_USAGE_ACCESS_SETTINGS:
                 checkUsageStagPermission();
@@ -323,30 +330,34 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     public void run() {
                         drawView();
                     }
-                }, 1000);
+                }, 500);
                 startActivityForResult(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS), MY_PERMISSIONS_REQUEST_FOR_ACTION_USAGE_ACCESS_SETTINGS);
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         removeInstructionView();
                     }
-                }, 5000);
+                }, 4000);
 
                 break;
             case R.id.accessibility_setting:
 //                checkUsageStagPermission();
-                if (updateAccessibilityBtnUi()) {
+                if (hasAccessbilityPermission(getApplicationContext())) {
                     return;
                 }
-                accessibility_setting.setChecked(false);
-                if (checkDrawOverlayPermission()) {
-                    openAccessibilitySetting();
-                } else {
-                    requestPermission();
-                }
+                checkAccessibilitySetting();
                 break;
         }
 
+    }
+
+    private void checkAccessibilitySetting() {
+        accessibility_setting.setChecked(false);
+        if (checkDrawOverlayPermission()) {
+            openAccessibilitySetting();
+        } else {
+            requestPermission();
+        }
     }
 
     private void openAccessibilitySetting() {
@@ -357,14 +368,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             public void run() {
                 drawView();
             }
-        }, 1000);
+        }, 500);
         startActivityForResult(new Intent(android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS), MY_PERMISSIONS_REQUEST_ACCESSBILITY_SERVICE);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 removeInstructionView();
             }
-        }, 3000);
+        }, 4000);
 
 
     }
@@ -431,16 +442,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         if (id == R.id.action_settings) {
             // launch settings activity
-            if(shrdPref.isPasswordEnabled()){
-                startActivity(PasswordScreen.class);
-            }else {
-                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+            if (hasAccessbilityPermission(getApplicationContext())) {
+                if (shrdPref.isPasswordEnabled() && shrdPref.getEmail() != null) {
+                    startActivity(PasswordScreen.class);
+                } else {
+                    startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+                }
+                return true;
             }
-            return true;
+            checkAccessibilitySetting();
+            return false;
         }
 
         return super.onOptionsItemSelected(item);
     }
-
 
 }

@@ -6,6 +6,7 @@ import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
+import android.preference.SwitchPreference;
 import android.view.MenuItem;
 
 import com.socialrehab.R;
@@ -83,25 +84,39 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         private Preference pref_facebook_end_time;
         private Preference pref_instagram_start_time;
         private Preference pref_instagram_end_time;
+        private Preference pref_twitter_start_time;
+        private Preference pref_twitter_end_time;
+        private Preference pref_youtube_start_time;
+        private Preference pref_youtube_end_time;
 
         @Override
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             shardPref = SharedPref.getInstance(getActivity());
             addPreferencesFromResource(R.xml.pref_setting);
+            /*init preferences*/
             pref_whatsapp_start_time = findPreference(getString(R.string.pref_whatsapp_start_time));
             pref_whatsapp_end_time = findPreference(getString(R.string.pref_whatsapp_end_time));
             pref_facebook_start_time = findPreference(getString(R.string.pref_facebook_start_time));
             pref_facebook_end_time = findPreference(getString(R.string.pref_facebook_end_time));
             pref_instagram_start_time = findPreference(getString(R.string.pref_instagram_start_time));
             pref_instagram_end_time = findPreference(getString(R.string.pref_instagram_end_time));
+            pref_twitter_start_time = findPreference(getString(R.string.pref_twitter_start_time));
+            pref_twitter_end_time = findPreference(getString(R.string.pref_twitter_end_time));
+            pref_youtube_start_time = findPreference(getString(R.string.pref_youtube_start_time));
+            pref_youtube_end_time = findPreference(getString(R.string.pref_youtube_end_time));
 
+            /*set summary*/
             pref_whatsapp_start_time.setSummary(getFormatedTime(shardPref.whatsAppStartTime()));
             pref_whatsapp_end_time.setSummary(getFormatedTime(shardPref.whatsAppEndTime()));
             pref_facebook_start_time.setSummary(getFormatedTime(shardPref.facebookStartTime()));
             pref_facebook_end_time.setSummary(getFormatedTime(shardPref.facebookEndTime()));
             pref_instagram_start_time.setSummary(getFormatedTime(shardPref.instagramStartTime()));
             pref_instagram_end_time.setSummary(getFormatedTime(shardPref.instagramEndTime()));
+            pref_twitter_start_time.setSummary(getFormatedTime(shardPref.twitterStartTime()));
+            pref_twitter_end_time.setSummary(getFormatedTime(shardPref.twitterEndTime()));
+            pref_youtube_start_time.setSummary(getFormatedTime(shardPref.youtubeStartTime()));
+            pref_youtube_end_time.setSummary(getFormatedTime(shardPref.youtubeEndTime()));
 //           change listener
 //            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_send_feedback)));
 //            bindPreferenceSummaryToValue(pref_whatsapp_start_time);
@@ -111,20 +126,31 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 //            bindPreferenceSummaryToValue(pref_instagram_start_time);
 //            bindPreferenceSummaryToValue(pref_instagram_end_time);
             findPreference(getString(R.string.pref_key_send_feedback)).setOnPreferenceChangeListener(this);
+            findPreference(getString(R.string.pref_password_enable)).setOnPreferenceChangeListener(this);
+
             pref_whatsapp_start_time.setOnPreferenceChangeListener(this);
             pref_whatsapp_end_time.setOnPreferenceChangeListener(this);
             pref_facebook_start_time.setOnPreferenceChangeListener(this);
             pref_facebook_end_time.setOnPreferenceChangeListener(this);
             pref_instagram_start_time.setOnPreferenceChangeListener(this);
             pref_instagram_end_time.setOnPreferenceChangeListener(this);
+            pref_twitter_start_time.setOnPreferenceChangeListener(this);
+            pref_twitter_end_time.setOnPreferenceChangeListener(this);
+            pref_youtube_start_time.setOnPreferenceChangeListener(this);
+            pref_youtube_end_time.setOnPreferenceChangeListener(this);
 
+            /*back_button*/
             Preference pref_whatsapp_key_back = findPreference(getString(R.string.pref_whatsapp_key_back));
             Preference pref_facebook_key_back = findPreference(getString(R.string.pref_facebook_key_back));
             Preference pref_instagram_key_back = findPreference(getString(R.string.pref_instagram_key_back));
+            Preference pref_twitter_key_back = findPreference(getString(R.string.pref_twitter_key_back));
+            Preference pref_youtube_key_back = findPreference(getString(R.string.pref_youtube_key_back));
             pref_whatsapp_key_back.setOnPreferenceClickListener(this);
             pref_facebook_key_back.setOnPreferenceClickListener(this);
             pref_instagram_key_back.setOnPreferenceClickListener(this);
-//            findPreference(getString(R.string.pref_change_password)).setOnPreferenceClickListener(this);
+            pref_twitter_key_back.setOnPreferenceClickListener(this);
+            pref_youtube_key_back.setOnPreferenceClickListener(this);
+            findPreference(getString(R.string.pref_change_password)).setOnPreferenceClickListener(this);
         }
 
         @Override
@@ -139,8 +165,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 case "pref_instagram_key_back":
                     ((PreferenceScreen) findPreference(getString(R.string.instagram))).getDialog().dismiss();
                     return true;
+                case "pref_twitter_key_back":
+                    ((PreferenceScreen) findPreference(getString(R.string.twitter))).getDialog().dismiss();
+                    return true;
+                case "pref_youtube_key_back":
+                    ((PreferenceScreen) findPreference(getString(R.string.youtube))).getDialog().dismiss();
+                    return true;
                 case "pref_change_password":
-                    startActivity(new Intent(getActivity(),ChangePassword.class));
+                    startActivity(new Intent(getActivity(), ChangePassword.class));
                     return true;
             }
             return false;
@@ -153,6 +185,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             if (preference instanceof EditTextPreference) {
                 if (preference.getKey().equals("pref_key_send_feedback")) {
                     ExecuteTask.saveFeedBack(getActivity(), stringValue);
+                }
+            } else if (preference instanceof SwitchPreference) {
+                if (preference.getKey().equals("pref_password_enable") && !shardPref.isPasswordEnabled()) {
+                    if (shardPref.getEmail() == null) {
+                        startActivity(new Intent(getActivity(), ChangePassword.class));
+                    }
                 }
             } else if (preference instanceof TimePreference) {
                 switch (preference.getKey()) {
@@ -172,6 +210,18 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                         preference.setSummary(getFormatedTime(stringValue));
                         break;
                     case "pref_instagram_end_time":
+                        preference.setSummary(getFormatedTime(stringValue));
+                        break;
+                    case "pref_twitter_start_time":
+                        preference.setSummary(getFormatedTime(stringValue));
+                        break;
+                    case "pref_twitter_end_time":
+                        preference.setSummary(getFormatedTime(stringValue));
+                        break;
+                    case "pref_youtube_start_time":
+                        preference.setSummary(getFormatedTime(stringValue));
+                        break;
+                    case "pref_youtube_end_time":
                         preference.setSummary(getFormatedTime(stringValue));
                         break;
                 }

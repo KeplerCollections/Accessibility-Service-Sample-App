@@ -66,6 +66,7 @@
 
             </PreferenceCategory>
         </PreferenceScreen>
+
         <PreferenceScreen
             android:icon="@drawable/instagram"
             android:key="@string/instagram"
@@ -96,6 +97,7 @@
 
             </PreferenceCategory>
         </PreferenceScreen>
+
         <PreferenceScreen
             android:icon="@drawable/twitter"
             android:key="@string/twitter"
@@ -174,11 +176,11 @@
             android:title="@string/active" />
 
 
-     <!--   <Preference
+        <Preference
             android:key="@string/pref_change_password"
             android:shouldDisableView="true"
-            android:title="@string/change_password" />
--->
+            android:title="@string/set_password" />
+
 
     </PreferenceCategory>
 

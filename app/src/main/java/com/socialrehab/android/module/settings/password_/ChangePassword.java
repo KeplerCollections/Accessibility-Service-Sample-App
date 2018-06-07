@@ -15,13 +15,16 @@ import com.socialrehab.R;
 import com.socialrehab.android.module.ExecuteTask;
 import com.socialrehab.android.support.SharedPref;
 
-import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 
-import static com.socialrehab.android.support.Constanta.email;
-import static com.socialrehab.android.support.Constanta.password;
+import static com.socialrehab.android.module.ExecuteTask.MESSAGE;
+import static com.socialrehab.android.module.ExecuteTask.STATUS;
+import static com.socialrehab.android.module.ExecuteTask.postStringRequest;
 
 public class ChangePassword extends BaseActivity {
 
@@ -56,28 +59,40 @@ public class ChangePassword extends BaseActivity {
                     showToast(R.string.err_valid_email_id);
                     return;
                 }
-                try {
-                    final ProgressDialog pDialog = ProgressDialog.show(ChangePassword.this, "", "updating");
-                    JSONObject jsonObject=new JSONObject();
-                    jsonObject.put(email,r_eid.getText().toString());
-                    jsonObject.put(password,pd.getText().toString());
-                    ExecuteTask.postJsonObjectRequest(getApplicationContext(), "", jsonObject, new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put(ExecuteTask.DEVICE_ID, ExecuteTask.getDeviceId(getApplicationContext()));
+                params.put(ExecuteTask.EMAIL, r_eid.getText().toString());
+                params.put(ExecuteTask.PASSWORD, pd.getText().toString());
+                final ProgressDialog progressDialog = ProgressDialog.show(ChangePassword.this, "", getString(R.string.loading));
+                postStringRequest(getApplicationContext(), params, ExecuteTask.SET_PASSWORD, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        progressDialog.dismiss();
+                        if (response == null || response.isEmpty()) {
+                            showToast(R.string.err_network);
+                            return;
+                        }
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            if (!jsonObject.optBoolean(STATUS)) {
+                                showToast(jsonObject.optString(MESSAGE));
+                                return;
+                            }
                             shardPref.savePE(pd.getText().toString(), r_eid.getText().toString());
-                            showToast(R.string.password_changed);
+                            showToast("Password saved successfully");
                             onBackPressed();
-                            pDialog.dismiss();
+                        } catch (Exception e) {
+
                         }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            pDialog.dismiss();
-                        }
-                    });
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
+                        showToast(R.string.err_network);
+                    }
+                });
+//
             }
         });
     }

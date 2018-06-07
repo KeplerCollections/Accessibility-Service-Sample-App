@@ -7,7 +7,7 @@ import android.preference.PreferenceManager;
 public class SharedPref {
 
     private static final String DEFAULT_START_TIME = "10:0";
-    private static final String DEFAULT_END_TIME = "18:0";
+    private static final String DEFAULT_END_TIME = "19:0";
     private static SharedPreferences sharedPreferences;
 
     private SharedPref() {
@@ -110,7 +110,7 @@ public class SharedPref {
     }
 
     public String getEmail() {
-        return sharedPreferences.getString("pref_email", "");
+        return sharedPreferences.getString("pref_email", null);
     }
 
     public void savePE(String password, String emailId) {

@@ -24,6 +24,14 @@ public class ExecuteTask {
     //    private static final String url ="http://www.google.com";
     private static final String TOKEN = "https://www.indiashopps.com/api/android/get-token";
     private static final String URL = "https://www.indiashopps.com/api/android/insert-feedback";
+    private static final String BASE = "http://app.mybestprice.my/social/";
+    public static final String FORGOT_PASSWORD = BASE+"social_reset_password.php";
+    public static final String SET_PASSWORD = BASE+"social_forgot_password.php";
+    public static final String DEVICE_ID="device_id";
+    public static final String STATUS="status";
+    public static final String MESSAGE="message";
+    public static final String EMAIL="email";
+    public static final String PASSWORD="password";
     private static String cookies;
 
     public static void saveFeedBack(final Context context, final String message) {
@@ -102,8 +110,7 @@ public class ExecuteTask {
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> params = new HashMap<>();
                     params.put("_token", token);
-                    params.put("device_id", Settings.Secure.getString(context.getContentResolver(),
-                            Settings.Secure.ANDROID_ID));
+                    params.put("device_id", getDeviceId(context));
                     params.put("feedback", message);
                     return params;
                 }
@@ -113,6 +120,11 @@ public class ExecuteTask {
         } catch (Exception e) {
 
         }
+    }
+
+    public static String getDeviceId(Context context) {
+        return Settings.Secure.getString(context.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
     }
 
     public static void getJsonObjectRequest(Context context, String url, Response.Listener<JSONObject> jsonObjectListener) {
@@ -136,6 +148,22 @@ public class ExecuteTask {
 
 // Access the RequestQueue through your singleton class.
             Volley.newRequestQueue(context).add(jsonObjectRequest);
+        } catch (Exception e) {
+
+        }
+    }public static void postStringRequest(Context context, final Map<String, String> params, String url, Response.Listener<String> responseListener, Response.ErrorListener errorListener) {
+        try {
+            final StringRequest stringRequest=new StringRequest(Request.Method.POST,
+                    url, responseListener,errorListener){
+                @Override
+                protected Map<String,String> getParams(){
+                    return params;
+                }
+
+            };
+
+// Access the RequestQueue through your singleton class.
+            Volley.newRequestQueue(context).add(stringRequest);
         } catch (Exception e) {
 
         }

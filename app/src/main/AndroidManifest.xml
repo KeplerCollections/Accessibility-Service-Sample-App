@@ -52,7 +52,7 @@
             android:label="@string/enter_password"
             android:screenOrientation="portrait" />
         <activity android:name=".android.module.settings.password_.ChangePassword"
-            android:label="@string/change_password"
+            android:label="@string/set_password"
             android:screenOrientation="portrait"></activity>
     </application>
 

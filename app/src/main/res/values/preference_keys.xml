@@ -15,20 +15,20 @@
     <string name="pref_instagram_end_time" translatable="false">pref_instagram_end_time</string>
     <string name="pref_instagram_key_back" translatable="false">pref_instagram_key_back</string>
 
-    <string name="pref_twitter_enabled" translatable="false">pref_instagram_enabled</string>
-    <string name="pref_twitter_start_time" translatable="false">pref_instagram_start_time</string>
-    <string name="pref_twitter_end_time" translatable="false">pref_instagram_end_time</string>
-    <string name="pref_twitter_key_back" translatable="false">pref_instagram_key_back</string>
+    <string name="pref_twitter_enabled" translatable="false">pref_twitter_enabled</string>
+    <string name="pref_twitter_start_time" translatable="false">pref_twitter_start_time</string>
+    <string name="pref_twitter_end_time" translatable="false">pref_twitter_end_time</string>
+    <string name="pref_twitter_key_back" translatable="false">pref_twitter_key_back</string>
 
-    <string name="pref_youtube_enabled" translatable="false">pref_instagram_enabled</string>
-    <string name="pref_youtube_start_time" translatable="false">pref_instagram_start_time</string>
-    <string name="pref_youtube_end_time" translatable="false">pref_instagram_end_time</string>
-    <string name="pref_youtube_key_back" translatable="false">pref_instagram_key_back</string>
+    <string name="pref_youtube_enabled" translatable="false">pref_youtube_enabled</string>
+    <string name="pref_youtube_start_time" translatable="false">pref_youtube_start_time</string>
+    <string name="pref_youtube_end_time" translatable="false">pref_youtube_end_time</string>
+    <string name="pref_youtube_key_back" translatable="false">pref_youtube_key_back</string>
 
     <string name="pref_key_send_feedback" translatable="false">pref_key_send_feedback</string>
 
     <string name="pref_password_enable" translatable="false">pref_password_enable</string>
     <string name="pref_change_password" translatable="false">pref_change_password</string>
-    <string name="pref_password" translatable="false">pref_change_password</string>
-    <string name="pref_email" translatable="false">pref_change_password</string>
+    <string name="pref_password" translatable="false">pref_password</string>
+    <string name="pref_email" translatable="false">pref_email</string>
 </resources>
