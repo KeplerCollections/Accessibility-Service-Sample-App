@@ -11,6 +11,7 @@
     <dimen name="twenty_sp">20sp</dimen>
     <dimen name="twelve_sp">12sp</dimen>
     <dimen name="fourteen_sp">14sp</dimen>
+    <dimen name="sixteen_sp">16sp</dimen>
     <dimen name="onefifty_dp">150dp</dimen>
     <dimen name="onehundred_dp">100dp</dimen>
     <dimen name="eighty_dp">80dp</dimen>
@@ -25,7 +26,7 @@
     <dimen name="textSize_Small">@dimen/twelve_sp</dimen>
 
 
-    <!--password screen-->
+    <!--password scr80een-->
     <dimen name="key_text_size">24.0sp</dimen>
     <dimen name="drawableDimen">30.0dp</dimen>
     <dimen name="digit_vertical_padding">40.0dp</dimen>

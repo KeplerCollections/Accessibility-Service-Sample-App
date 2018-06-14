@@ -58,10 +58,11 @@
         style="@style/LightTextAppearanceMedium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/sixteen_sp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/toggle_button_selector"
         android:checked="false"
-        android:textOff="Enable Control Usage"
+        android:textOff="👆 Click to Control Your Social Apps"
         android:textOn="Control Usage Enabled" />
 
     <LinearLayout

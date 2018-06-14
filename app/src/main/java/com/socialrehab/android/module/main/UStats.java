@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import static com.socialrehab.android.module.accessibility.MyAccessibilityService.PACKAGE_NAMES;
+import static com.socialrehab.android.module.accessibility.TaskHandler.PACKAGE_NAMES;
 
 public class UStats {
     public static final String TAG = UStats.class.getSimpleName();

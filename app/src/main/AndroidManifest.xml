@@ -27,6 +27,7 @@
         </activity>
 
         <service
+            android:label="@string/accessibility_setting_page_label"
             android:name=".android.module.accessibility.MyAccessibilityService"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>

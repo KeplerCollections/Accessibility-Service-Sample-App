@@ -1,8 +1,12 @@
 package com.socialrehab.android.module.main;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.AppOpsManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.net.Uri;
@@ -17,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -33,6 +38,7 @@ import com.kepler.projectsupportlib.BaseActivity;
 import com.kepler.projectsupportlib.Logger;
 import com.socialrehab.R;
 import com.socialrehab.android.module.accessibility.MyAccessibilityService;
+import com.socialrehab.android.module.accessibility.TaskHandler;
 import com.socialrehab.android.module.settings.SettingsActivity;
 import com.socialrehab.android.module.settings.password_.PasswordScreen;
 import com.socialrehab.android.module.showcase.ShowCase;
@@ -47,16 +53,16 @@ import butterknife.BindView;
 
 import static android.app.AppOpsManager.MODE_ALLOWED;
 import static android.app.AppOpsManager.OPSTR_GET_USAGE_STATS;
-import static com.socialrehab.android.module.accessibility.MyAccessibilityService.PACKAGE_FB_KATANA;
-import static com.socialrehab.android.module.accessibility.MyAccessibilityService.PACKAGE_FB_KATANA_INT;
-import static com.socialrehab.android.module.accessibility.MyAccessibilityService.PACKAGE_IG;
-import static com.socialrehab.android.module.accessibility.MyAccessibilityService.PACKAGE_IG_INT;
-import static com.socialrehab.android.module.accessibility.MyAccessibilityService.PACKAGE_TWITTER;
-import static com.socialrehab.android.module.accessibility.MyAccessibilityService.PACKAGE_TWITTER_INT;
-import static com.socialrehab.android.module.accessibility.MyAccessibilityService.PACKAGE_WHATS_APP;
-import static com.socialrehab.android.module.accessibility.MyAccessibilityService.PACKAGE_WHATS_APP_INT;
-import static com.socialrehab.android.module.accessibility.MyAccessibilityService.PACKAGE_YOUTUBE;
-import static com.socialrehab.android.module.accessibility.MyAccessibilityService.PACKAGE_YOUTUBE_INT;
+import static com.socialrehab.android.module.accessibility.TaskHandler.PACKAGE_FB_KATANA;
+import static com.socialrehab.android.module.accessibility.TaskHandler.PACKAGE_FB_KATANA_INT;
+import static com.socialrehab.android.module.accessibility.TaskHandler.PACKAGE_IG;
+import static com.socialrehab.android.module.accessibility.TaskHandler.PACKAGE_IG_INT;
+import static com.socialrehab.android.module.accessibility.TaskHandler.PACKAGE_TWITTER;
+import static com.socialrehab.android.module.accessibility.TaskHandler.PACKAGE_TWITTER_INT;
+import static com.socialrehab.android.module.accessibility.TaskHandler.PACKAGE_WHATS_APP;
+import static com.socialrehab.android.module.accessibility.TaskHandler.PACKAGE_WHATS_APP_INT;
+import static com.socialrehab.android.module.accessibility.TaskHandler.PACKAGE_YOUTUBE;
+import static com.socialrehab.android.module.accessibility.TaskHandler.PACKAGE_YOUTUBE_INT;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -91,7 +97,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     Settings.Secure.ACCESSIBILITY_ENABLED);
             Logger.d("accessibilityEnabled = " + accessibilityEnabled);
         } catch (Settings.SettingNotFoundException e) {
-            Logger.d("Err   or finding setting, default accessibility to not found: "
+            Logger.d("Error finding setting, default accessibility to not found: "
                     + e.getMessage());
 
         }
@@ -121,9 +127,28 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         return false;
     }
 
+    private void manageBlinkEffect() {
+        ObjectAnimator anim = ObjectAnimator.ofInt(accessibility_setting, "backgroundColor",
+                getResources().getColor(R.color.colorPrimary_combi_1),
+                getResources().getColor(R.color.colorPrimary_combi_2),
+                getResources().getColor(R.color.colorPrimary_combi_3));
+        anim.setDuration(1500);
+        anim.setEvaluator(new ArgbEvaluator());
+        anim.setRepeatMode(ValueAnimator.REVERSE);
+        anim.setRepeatCount(Animation.INFINITE);
+        anim.start();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        PackageManager localPackageManager = getPackageManager();
+        Intent intent = new Intent("android.intent.action.MAIN");
+        intent.addCategory("android.intent.category.HOME");
+        String str = localPackageManager.resolveActivity(intent,
+                PackageManager.MATCH_DEFAULT_ONLY).activityInfo.packageName;
+        Logger.e("Current launcher Package Name:",str);
+        manageBlinkEffect();
+        TaskHandler.last_package = false;
         shrdPref = SharedPref.getInstance(this);
         setTitle(R.string.main);
         if (hasAccessbilityPermission(getApplicationContext())) {

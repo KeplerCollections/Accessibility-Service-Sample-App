@@ -185,7 +185,6 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_header_about">
-
         <!--   <Preference
                android:selectable="false"
                android:summary="@string/summary_about" />-->
